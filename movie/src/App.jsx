@@ -6,6 +6,8 @@ import SearchAndAddMovie from './components/SearchAndAddMovie'
 import { Box, CssBaseline, Drawer, List, ListItem, ListItemText, Typography, Button, Dialog, DialogTitle, DialogContent, } from '@mui/material'
 import "@fontsource/poppins";
 import api from './api'
+import './App.css'
+
 
 const drawerWidth = 260
 
@@ -67,19 +69,19 @@ function App() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', bgcolor: '#121212', minHeight: '100vh', color: 'white' }}>
-        <CssBaseline />
 
+      <header className="header">
+        <div className="overlay">
 
-        {/* Main Content */}
-        <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
-          <Box mb={3} display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h4">🎬 MovieMate</Typography>
+          <Box mb={1} display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h4" sx={{ color: "white" }}>🎬 MovieMate</Typography>
             <Box display="flex" gap={2} sx={{
+              ml: 12,
               p: 2,
               bgcolor: 'rgba(255,255,255,0.05)',
               borderRadius: 2,
-              backdropFilter: 'blur(6px)'
+              backdropFilter: 'blur(6px)',
+              alignContent: "end"
             }} >
               <FilterBar
                 filters={filters}
@@ -95,10 +97,21 @@ function App() {
               }} onClick={() => setOpenForm(true)}>Add Movie/Show</Button>
             </Box>
           </Box>
+        </div>
+      </header>
+
+
+      <Box sx={{ display: 'flex', bgcolor: '#121212', minHeight: '100vh', color: 'white' }}>
+        <CssBaseline />
+
+
+        {/* Main Content */}
+        <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
+
 
           {/* Search box that fetches from OMDb */}
           <SearchAndAddMovie onAdd={(addMovie)} />
-            
+
           <MovieL movies={movies.filter(m =>
             (!filters.genre || m.genre.toLowerCase().includes(filters.genre.toLowerCase())) &&
             (!filters.platform || m.platform.toLowerCase().includes(filters.platform.toLowerCase())) &&

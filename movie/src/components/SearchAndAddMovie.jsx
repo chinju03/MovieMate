@@ -25,7 +25,7 @@ export default function SearchAndAddMovie({ onAdd }) {
                 poster: data.Poster !== "N/A" ? data.Poster : "",
                 is_tv: data.Type === "series",
                 platform: "",
-                status: status,
+                status: "wishlist",
                 total_episodes: 0,
                 episodes_watched: 0,
                 rating: 0,
@@ -76,33 +76,6 @@ export default function SearchAndAddMovie({ onAdd }) {
             >
                 Search
             </Button>
-
-            {/* status selector */}
-            <TextField
-                select
-                size="small"
-                label="Status"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                sx={{
-                    mt: 2,
-                    minWidth: 160,
-                    input: { color: "white" },
-                    label: { color: "white" },
-                    "& .MuiSelect-select": { color: "white" },
-                    "& .MuiOutlinedInput-root": {
-                        "& fieldset": { borderColor: "white" },
-                        "&:hover fieldset": { borderColor: "white" },
-                        "&.Mui-focused fieldset": { borderColor: "white" }
-                    }
-                }}
-            >
-                {statusOptions.map((opt) => (
-                    <MenuItem key={opt} value={opt}>
-                        {opt.charAt(0).toUpperCase() + opt.slice(1)}
-                    </MenuItem>
-                ))}
-            </TextField>
 
             {movie && (
                 <Box sx={{ mt: 3, mb: 3 }}>

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import {
   Card, CardContent, Typography, LinearProgress, Box, Button,
-  Rating, Chip, Dialog, DialogTitle, DialogContent, TextField, DialogActions
+  Rating, Chip, Dialog, DialogTitle, DialogContent, TextField, DialogActions, MenuItem
 } from '@mui/material'
 import MovieIcon from '@mui/icons-material/Movie'
 import TvIcon from '@mui/icons-material/Tv'
@@ -13,10 +13,13 @@ function MovieC({ movie, onUpdate, onDelete }) {
   const [openReview, setOpenReview] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [form, setForm] = useState({
+    title: movie.title || "",
+    director: movie.director || "",
     episodes_watched: movie.episodes_watched || 0,
     total_episodes: movie.total_episodes || 0,
     platform: movie.platform || "",
-    poster: movie.poster || ""
+    poster: movie.poster || "",
+    status: movie.status || "wishlist"
   })
 
   const handleRatingChange = async (newVal) => {
@@ -134,6 +137,11 @@ function MovieC({ movie, onUpdate, onDelete }) {
               “{movie.review}”
             </Typography>
           )}
+          {movie.short_review && (
+            <Typography variant="body2" sx={{ mt: 1, fontStyle: "italic", color: "gray" }}>
+              Summary: {movie.short_review}
+            </Typography>
+          )}
         </CardContent>
       </Card>
 
@@ -154,6 +162,22 @@ function MovieC({ movie, onUpdate, onDelete }) {
       <Dialog open={openEdit} onClose={() => setOpenEdit(false)} fullWidth maxWidth="sm">
         <DialogTitle>Edit {movie.title}</DialogTitle>
         <DialogContent>
+
+          {/* Title */}
+          <TextField fullWidth margin="dense" label="Title"
+            value={form.title}
+            onChange={e => setForm({ ...form, title: e.target.value })} />
+
+          {/* Director */}
+          <TextField fullWidth margin="dense" label="Director"
+            value={form.director}
+            onChange={e => setForm({ ...form, director: e.target.value })} />
+
+          {/* Genre */}
+          <TextField fullWidth margin="dense" label="Genre"
+            value={form.genre}
+            onChange={e => setForm({ ...form, genre: e.target.value })} />
+         
           {movie.is_tv && (
             <>
               <TextField fullWidth type="number" margin="dense"
@@ -168,6 +192,21 @@ function MovieC({ movie, onUpdate, onDelete }) {
               />
             </>
           )}
+          <TextField
+            select
+            fullWidth
+            margin="dense"
+            label="Status"
+            value={form.status}
+            onChange={e => setForm({ ...form, status: e.target.value })}
+          >
+            {["wishlist", "watching", "completed"].map(opt => (
+              <MenuItem key={opt} value={opt}>
+                {opt.charAt(0).toUpperCase() + opt.slice(1)}
+              </MenuItem>
+            ))}
+          </TextField>
+
           <TextField fullWidth margin="dense" label="Platform"
             value={form.platform}
             onChange={e => setForm({ ...form, platform: e.target.value })} />
