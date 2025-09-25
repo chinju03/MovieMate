@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 
-function FilterBar({ filters, setFilters }) {
+function FilterBar({ filters, setFilters, genres = [], platforms = [], statuses = [] }) {
     const handle = (k, v) => setFilters({ ...filters, [k]: v })
 
     const selectStyles = {
@@ -15,31 +15,31 @@ function FilterBar({ filters, setFilters }) {
     return (
         <>
             <Box display="flex" gap={2}>
+
+                {/* Genre Filter */}
                 <FormControl size="small" sx={{ minWidth: 120 }}>
                     <InputLabel sx={{ color: 'white' }}>Genre</InputLabel>
-                    <Select value={filters.genre} label="Genre" onChange={e => handle('genre', e.target.value)} sx={selectStyles}>
+                    <Select value={filters.genre} label="Genre" onChange={e => setFilters({ ...filters, genre: e.target.value })} sx={selectStyles}>
                         <MenuItem value="">All</MenuItem>
-                        <MenuItem value="Sci-Fi">Sci-Fi</MenuItem>
-                        <MenuItem value="Action">Action</MenuItem>
-                        <MenuItem value="Drama">Drama</MenuItem>
+                        {genres.map(g => <MenuItem key={g} value={g}>{g}</MenuItem>)}
                     </Select>
                 </FormControl>
+
+                {/* Platform Filter */}
                 <FormControl size="small" sx={{ minWidth: 120 }}>
                     <InputLabel sx={{ color: 'white' }}>Platform</InputLabel>
-                    <Select value={filters.platform} label="Platform" onChange={e => handle('platform', e.target.value)} sx={selectStyles}>
+                    <Select value={filters.platform} label="Platform" onChange={e => setFilters({ ...filters, platform: e.target.value })} sx={selectStyles}>
                         <MenuItem value="">All</MenuItem>
-                        <MenuItem value="Netflix">Netflix</MenuItem>
-                        <MenuItem value="Prime">Prime</MenuItem>
-                        <MenuItem value="Disney+">Disney+</MenuItem>
+                        {platforms.map(p => <MenuItem key={p} value={p}>{p}</MenuItem>)}
                     </Select>
                 </FormControl>
+
+                {/* Status Filter  */}
                 <FormControl size="small" sx={{ minWidth: 120 }}>
                     <InputLabel sx={{ color: 'white' }}>Status</InputLabel>
-                    <Select value={filters.status} label="Status" onChange={e => handle('status', e.target.value)}  sx={selectStyles}>
+                    <Select value={filters.status} label="Status" onChange={e => setFilters({ ...filters, status: e.target.value })} sx={selectStyles}>
                         <MenuItem value="">All</MenuItem>
-                        <MenuItem value="watching">Watching</MenuItem>
-                        <MenuItem value="completed">Completed</MenuItem>
-                        <MenuItem value="wishlist">Wishlist</MenuItem>
+                        {statuses.map(s => <MenuItem key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</MenuItem>)}
                     </Select>
                 </FormControl>
             </Box>

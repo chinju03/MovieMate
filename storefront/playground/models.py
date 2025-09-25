@@ -11,6 +11,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=200)
     director = models.CharField(max_length=200, blank=True)
     genre = models.CharField(max_length=100, blank=True)
+    poster = models.URLField(blank=True)
     platform = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='wishlist')
     is_tv = models.BooleanField(default=False)

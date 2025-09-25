@@ -1,19 +1,26 @@
 import React from 'react'
-import { Grid } from '@mui/material'
+import { Grid, CircularProgress, Box } from '@mui/material'
 import MovieC from './MovieC'
 
-function MovieL({movies}) {
+function MovieL({ movies, loading, onUpdate, onDelete }) {
+  if (loading) {
     return (
-        <>
-           <Grid container spacing={2}>
-      {movies.map(m=>(
-        <Grid item xs={12} sm={6} md={4} lg={3} key={m.id}>
-          <MovieC movie={m}/>
-        </Grid>
-      ))}
-    </Grid>
-        </>
+      <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 5 }}>
+        <CircularProgress />
+      </Box>
     )
+  }
+  return (
+    <>
+      <Grid container spacing={3}>
+        {movies.map(m => (
+          <Grid item xs={12} sm={6} md={4}  key={m.id}>
+            <MovieC movie={m} onUpdate={onUpdate} onDelete={onDelete} />
+          </Grid>
+        ))}
+      </Grid>
+    </>
+  )
 }
 
 export default MovieL

@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.http import HttpResponse
 from rest_framework.routers import DefaultRouter
 from .views import MovieViewSet
 
@@ -6,6 +7,11 @@ from .views import MovieViewSet
 router = DefaultRouter()
 router.register(r'playground', MovieViewSet)
 
+# Homepage view
+def home(request):
+    return HttpResponse("Welcome to MovieMate API")
+
 urlpatterns = [
-    path('', include(router.urls)),
+   path('', home),              # this makes '/' work
+   path('api/', include(router.urls)),
 ]
