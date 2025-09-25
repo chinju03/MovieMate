@@ -12,6 +12,7 @@ function MovieC({ movie, onUpdate, onDelete }) {
   const [review, setReview] = useState(movie.review || "")
   const [openReview, setOpenReview] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
+  const [hovered, setHovered] = useState(false);
   const [form, setForm] = useState({
     title: movie.title || "",
     director: movie.director || "",

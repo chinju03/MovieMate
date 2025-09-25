@@ -9,7 +9,6 @@ import api from './api'
 import './App.css'
 
 
-const drawerWidth = 260
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -110,7 +109,7 @@ function App() {
 
 
           {/* Search box that fetches from OMDb */}
-          <SearchAndAddMovie onAdd={(addMovie)} />
+          <SearchAndAddMovie onAdd={addMovie} />
 
           <MovieL movies={movies.filter(m =>
             (!filters.genre || m.genre.toLowerCase().includes(filters.genre.toLowerCase())) &&
